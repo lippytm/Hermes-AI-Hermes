@@ -1,0 +1,79 @@
+# Hermes Fleet Manifest — v6 TRUTHED
+# Generated 2026-07-02 by cross-referencing the live lippytm GitHub org
+# via the GitHub-Zapier connection. This replaces all prior manifests
+# (v1-v5), which contained placeholder/guessed repo names that do not
+# exist in the real org (lippytm-hub, agents, getbizfunds-integrations,
+# lippy-token, lippy-certificates were never real repo names).
+#
+# Org: lippytm (confirmed live account: github.com/lippytm, Charles Earl Lipshay)
+# Total repos found: 32 (all public)
+
+org: lippytm
+
+defaults:
+  nightly_scan_schedule: "0 6 * * *"
+  deep_audit_schedule: "0 7 * * 1"
+  self_heal_schedule: "0 5 * * *"
+  weekly_link_health_schedule: "0 8 * * 1"
+
+slack_reports_channel: "C0BD5UT5QG7" # #hermes-reports
+
+# ── TIER: CORE GOVERNANCE ─────────────────────────────────────────
+# Hermes' own home repo and the Prompt #11 governance engine.
+governance_repos:
+  - name: Hermes-AI-Hermes
+    role: hermes_home
+    notes: "Hermes toolkit repo — this manifest lives here"
+  - name: Prompt-11-
+    role: governance_engine
+    notes: "Prompt #11 rules engine that Hermes' risk policy is built on"
+
+# ── TIER: REVENUE-CRITICAL (never auto-merge, draft-PR only, forever) ──
+revenue_critical_repos:
+  - name: lippytmai.getbizfunds.com-
+    notes: "341 files. Live site repo for getbizfunds.com, BLB-controlled. GUARDRAIL: no auto-merge on anything touching referral links, affiliate params, BLB copy, commission logic, or domain mapping. Read-only monitoring preferred."
+  - name: lippytmai.zo.computer-
+    notes: "Connections hub repo — explicitly linked to getbizfunds.com attachments per its own description. Treat as revenue-adjacent: draft-PR only."
+
+# ── TIER: STANDARD (full self-heal automation allowed) ──────────────
+standard_repos:
+  - name: lippytm.ai
+  - name: AI-Autonomous-Systems-for-all-of-my-lippytm.ai-Repositories-Research-and-Development-integration-
+  - name: AI-Full-Stack-AI-DevOps-Synthetic-Intelligence-Engines-AgentsBots-Web3-Websites-
+  - name: AI-Intergalactic-Zoological-Social-Multimedia-Agency-Networks-
+  - name: AI-Time-Machines
+  - name: AllBots.com
+  - name: AllBots.com.ai
+  - name: balletcrypto.github.io
+  - name: Base44-
+  - name: Chatlippytm.ai.Bots
+  - name: chronos-flow
+  - name: docs
+  - name: Evolutionary-Evolutions-Social-Multimedia-Networks-Agency-
+  - name: Factory.ai
+  - name: gatsby-starter-blog
+  - name: http-famous.ai-fpr-charles92
+  - name: lippytm-lippytm.ai-tower-control-ai
+  - name: Quantum-Questions-of-the-Many-Worlds-Universes-of-Reruns-
+  - name: superagent-app
+  - name: The-Encyclopedia-of-Everything-Applied-ChatAIBots
+  - name: The-Encyclopedia-of-Law-Civilian-Law-Military-Law-Business-Law-AI-Law.-
+  - name: Time-Machines-Builders-
+  - name: Transparency-Logic-Time-Machine-Bots-
+  - name: Web3AI
+  - name: zenith-tasks
+
+# ── TIER: DEPRIORITIZED (per Charles's earlier confirmation — ClawBot/MyClaw family) ──
+deprioritized_repos:
+  - name: MyClaw.lippytm.AI-
+  - name: OpenClaw-lippytm.AI-
+  - name: Clawlippytm.ai.Bots
+  - name: Clawlippytm.Bots
+  - name: ClawBase44.ai.Bots
+
+# ── ACTIONS STILL NEEDED FROM CHARLES ────────────────────────────────
+open_items:
+  - "Confirm revenue_critical vs standard classification above is correct"
+  - "Provision a host for the Hermes engine itself (VPS vs serverless)"
+  - "Apply sql/hermes_findings_schema.sql to a live Postgres DSN"
+  - "Authenticate Dubb.AI via Zapier (auth URL sent separately)"
