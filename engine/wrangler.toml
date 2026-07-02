@@ -1,0 +1,24 @@
+name = "hermes-engine"
+main = "src/index.ts"
+compatibility_date = "2026-07-01"
+
+# Bound to the live D1 database created 2026-07-02.
+# Run `wrangler d1 databases list` to confirm this UUID if you ever recreate it.
+[[d1_databases]]
+binding = "HERMES_DB"
+database_name = "hermes-findings"
+database_id = "88ca2414-372e-4542-926e-8ea6c9d7c6c7"
+
+# Schedules match hermes-fleet-manifest-v6-truthed.yaml `defaults:` block exactly.
+# UTC cron syntax.
+[triggers]
+crons = [
+  "0 6 * * *",   # nightly_scan
+  "0 7 * * 1",   # deep_audit (Mondays)
+  "0 5 * * *",   # self_heal
+  "0 8 * * 1"    # weekly_link_health (Mondays)
+]
+
+# Secrets to set AFTER first deploy (never commit these):
+#   wrangler secret put GITHUB_TOKEN
+#   wrangler secret put SLACK_WEBHOOK_URL   (optional, for #hermes-reports)
