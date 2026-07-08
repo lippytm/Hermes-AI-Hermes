@@ -17,7 +17,7 @@
  *      checks, not a placeholder).
  *   3. Also pulls each repo's open_issues_count (repo-triage skill).
  *   4. If dead links are found AND ANTHROPIC_API_KEY is set, calls
- *      Claude (claude-sonnet-4-6) to draft a corrected README.
+ *      Claude (claude-fable-5) to draft a corrected README.
  *   5. GUARDRAIL, enforced in code:
  *        - governance / revenue_critical tiers: dead links and issue
  *          counts are only ever logged as `reported_only`. No branch,
