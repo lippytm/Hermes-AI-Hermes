@@ -141,7 +141,7 @@ export async function openDraftPR(
 }
 
 /**
- * Calls Claude (claude-sonnet-4-6) to draft a corrected README section
+ * Calls Claude (claude-fable-5) to draft a corrected README section
  * given a list of dead links. Returns null if no API key is configured
  * or the call fails — callers must treat that as "report only, no fix."
  */
@@ -170,7 +170,7 @@ Return ONLY the full corrected README markdown with the dead links either remove
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
-      model: "claude-sonnet-4-6",
+      model: "claude-fable-5",
       max_tokens: 4000,
       messages: [{ role: "user", content: prompt }],
     }),
