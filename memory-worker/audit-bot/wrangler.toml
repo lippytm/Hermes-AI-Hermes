@@ -1,0 +1,20 @@
+name = "lippytm-memory-audit-bot"
+main = "index.ts"
+compatibility_date = "2026-07-01"
+
+[triggers]
+crons = ["0 6 * * *"]  # nightly at 06:00 UTC
+
+[[d1_databases]]
+binding = "MEMORY_DB"
+database_name = "lippytm-swarms-memory"
+database_id = "4867c86f-2897-4082-9ad5-a10d3b1048b1"
+
+[[d1_databases]]
+binding = "FINDINGS_DB"
+database_name = "hermes-findings"
+database_id = "88ca2414-372e-4542-926e-8ea6c9d7c6c7"
+
+# Same deploy blocker as memory-worker and the three original Hermes bots:
+# deploys via .github/workflows/deploy.yml once CLOUDFLARE_API_TOKEN and
+# CLOUDFLARE_ACCOUNT_ID secrets are set on this repo.
