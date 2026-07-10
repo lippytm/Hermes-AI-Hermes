@@ -1,0 +1,13 @@
+name = "lippytm-memory-worker"
+main = "src/index.ts"
+compatibility_date = "2026-07-01"
+
+[[d1_databases]]
+binding = "MEMORY_DB"
+database_name = "lippytm-swarms-memory"
+database_id = "4867c86f-2897-4082-9ad5-a10d3b1048b1"
+
+# Deploys automatically via .github/workflows/deploy.yml once
+# CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets are set on this repo --
+# same unresolved blocker as the three Hermes bots. No new deploy step needed,
+# this just needs to be picked up by the existing workflow.
