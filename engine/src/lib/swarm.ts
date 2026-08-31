@@ -107,29 +107,31 @@ export interface SwarmEnv {
 /**
  * Attempts to register a claim for `agent` on `repo_name`.
  * Returns the claim ID on success, or null if another active claim blocks it.
+ *
+ * Uses an INSERT-or-fail strategy: the `system_claims` table must have a
+ * partial unique index on (repo_name) WHERE released_at IS NULL (see
+ * sql/system_claims_unique_active.sql). If a concurrent agent already holds
+ * an active claim, the INSERT violates the unique constraint; we catch that
+ * and return null rather than relying on a racy SELECT-then-INSERT.
  */
 export async function claimRepoForAgent(
   env: SwarmEnv,
   agent: SwarmPassport,
   repo_name: string
 ): Promise<number | null> {
-  // Check for any existing active (unreleased) claim on this repo.
-  const existing = await env.HERMES_DB.prepare(
-    `SELECT id FROM system_claims WHERE repo_name = ? AND released_at IS NULL LIMIT 1`
-  )
-    .bind(repo_name)
-    .first<{ id: number }>();
+  try {
+    const result = await env.HERMES_DB.prepare(
+      `INSERT INTO system_claims (repo_name, claimed_by, action_type, notes)
+       VALUES (?, ?, ?, ?)`
+    )
+      .bind(repo_name, agent.agent_id, "monitoring", `Swarm run by ${agent.display_name}`)
+      .run();
 
-  if (existing) return null; // Another agent (or external system) has the claim.
-
-  const result = await env.HERMES_DB.prepare(
-    `INSERT INTO system_claims (repo_name, claimed_by, action_type, notes)
-     VALUES (?, ?, ?, ?)`
-  )
-    .bind(repo_name, agent.agent_id, "monitoring", `Swarm run by ${agent.display_name}`)
-    .run();
-
-  return result.meta.last_row_id ?? null;
+    return result.meta.last_row_id ?? null;
+  } catch {
+    // Unique constraint violation — another active claim already exists.
+    return null;
+  }
 }
 
 /** Releases a previously acquired claim. */

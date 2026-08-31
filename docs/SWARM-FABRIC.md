@@ -112,8 +112,9 @@ This is enforced in code:
 
 ## Deployment
 
-1. Apply the new schema to D1:
+1. Apply the new schema and claim-concurrency index to D1:
    ```
+   wrangler d1 execute hermes-findings --file=sql/system_claims_unique_active.sql
    wrangler d1 execute hermes-findings --file=sql/hermes_audit_events_schema.sql
    ```
 

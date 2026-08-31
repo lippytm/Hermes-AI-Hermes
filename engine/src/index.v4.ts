@@ -277,7 +277,13 @@ async function runRedTeamAudit(
 
   // 2. README identity misuse surface check (looks for unguarded clone-persona claims).
   const readme = await getFile(ORG, repo.name, "README.md", env.GITHUB_TOKEN);
-  if (readme) {
+  if (!readme) {
+    const desc = `[RED-TEAM] No README.md found or unreadable — identity audit skipped for ${repo.name}.`;
+    await recordFinding(env, repo, "identity_audit", "reported_only", "low", desc);
+    await auditEvent(env, agent.agent_id, agent.model_line, "FINDING_RECORDED", repo.name, repo.tier, desc, workPacketId);
+    return;
+  }
+  {
     const suspectPatterns = [
       /charles earl lipshay.*literally/i,
       /actual alien/i,
@@ -470,8 +476,10 @@ async function handleSwarmStatus(env: Env): Promise<Response> {
         .first<{ created_at: string }>();
 
       const findingCount = await env.HERMES_DB.prepare(
-        `SELECT COUNT(*) as cnt FROM hermes_findings`
-      ).first<{ cnt: number }>();
+        `SELECT COUNT(*) as cnt FROM hermes_findings WHERE description LIKE ?`
+      )
+        .bind(`%${agent.agent_id}%`)
+        .first<{ cnt: number }>();
 
       const activeClaims = await env.HERMES_DB.prepare(
         `SELECT COUNT(*) as cnt FROM system_claims WHERE claimed_by = ? AND released_at IS NULL`
