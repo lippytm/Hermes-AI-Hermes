@@ -1,5 +1,5 @@
 name = "hermes-engine"
-main = "src/index.ts"
+main = "src/index.v4.ts"
 compatibility_date = "2026-07-01"
 
 # Bound to the live D1 database created 2026-07-02.
@@ -20,5 +20,7 @@ crons = [
 ]
 
 # Secrets to set AFTER first deploy (never commit these):
-#   wrangler secret put GITHUB_TOKEN
-#   wrangler secret put SLACK_WEBHOOK_URL   (optional, for #hermes-reports)
+#   wrangler secret put GITHUB_TOKEN                (repo write scope for PRs)
+#   wrangler secret put ANTHROPIC_API_KEY           (optional — AI link-fix drafts via lippytm-builder)
+#   wrangler secret put SLACK_WEBHOOK_URL           (optional, for #hermes-reports)
+#   wrangler secret put ZO_SHARED_SECRET            (optional — Zo Space / external claim auth)
