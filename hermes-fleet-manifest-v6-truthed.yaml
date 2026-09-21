@@ -6,7 +6,7 @@
 # lippy-token, lippy-certificates were never real repo names).
 #
 # Org: lippytm (confirmed live account: github.com/lippytm, Charles Earl Lipshay)
-# Total repos found: 32 (all public)
+# Total repos found: 35 (all public)
 
 org: lippytm
 
@@ -41,6 +41,9 @@ standard_repos:
   - name: AI-Autonomous-Systems-for-all-of-my-lippytm.ai-Repositories-Research-and-Development-integration-
   - name: AI-Full-Stack-AI-DevOps-Synthetic-Intelligence-Engines-AgentsBots-Web3-Websites-
   - name: AI-Intergalactic-Zoological-Social-Multimedia-Agency-Networks-
+  - name: MemPalace
+  - name: AI-Jarvis-Assistant-Engineer-Manager
+  - name: Communications-Engineer-Manager
   - name: AI-Time-Machines
   - name: AllBots.com
   - name: AllBots.com.ai
